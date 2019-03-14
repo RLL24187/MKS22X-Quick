@@ -1,28 +1,61 @@
-//import java.util.Random;
+import java.util.Random;
 public class Quick{
-  public static int[] partition(int[] ary){
-    //select a random pivot
-    //Random rnd = new Random();
-    //int pivot = rnd.nextInt(ary.length);
-
+  /*Modify the array such that:
+ *1. Only the indices from start to end inclusive are considered in range
+ *2. A random index from start to end inclusive is chosen, the corresponding
+ *   element is designated the pivot element.
+ *3. all elements in range that are smaller than the pivot element are placed before the pivot element.
+ *4. all elements in range that are larger than the pivot element are placed after the pivot element.
+ *@return the index of the final position of the pivot element.
+ */
+public int partitionR(int[] data, int start, int end){
+  //select a random pivot
+  Random rnd = new Random();
+  int pivot = rnd.nextInt(data.length);
+  //move the pivot to the first index
+  swap(pivot, start, data);
+  pivot = start;
+  //loop through the array and partition into less than and greater than sections based on pivot
+  for (int i = 1; i <= end; i++){
+    //System.out.println("ary["+i+"]: "+ary[i]);
+    //System.out.println("ary[i]<ary[pivot]: "+(ary[i]<ary[pivot]));
+    //System.out.println("Pivot value: "+ary[pivot]);
+    //System.out.println("Pivot: "+pivot);
+    if (data[i]<=data[pivot]){
+      moveFront(i, start, data);
+      //System.out.println(toString(ary));
+      pivot++;
+    }
+  }
+  return pivot;
+}
+  public static int[] partition(int[] ary, int start, int end){
     //Easy ( Implement both of these)
     //a - When choosing a pivot, use the median value of the lo,hi, and middle elements.
     //b - When a data element is equal to the pivot, make a 50% chance that you swap it to the other side.
     //taking the median number as the pivot
-    int pivot = (ary[0]+ary[ary.length-1])/2;
+    int pivot;
+    if ((ary[start]<=ary[end] && ary[start]>=ary[(start+end)/2])
+      ||(ary[start]>=ary[end] && ary[start]<=ary[(start+end)/2])){
+      pivot = ary[start];
+    }
+    else if((ary[end]<=ary[start] && ary[end]>=ary[(start+end)/2])
+      ||(ary[end]>=ary[start] && ary[end]<=ary[(start+end)/2])){
+      pivot = ary[end];
+      }
+    else{
+      pivot = ary[(start+end)/2];
+    }
     System.out.println("Pivot: "+pivot);
-    //move the pivot to the first index
-    //swap(pivot, 0, ary);
-    //pivot = 0;
     //loop through the array and partition into less than and greater than sections based on pivot
-    for (int i = 1; i < ary.length; i++){
+    for (int i = start; i < end+1; i++){
       //System.out.println("ary["+i+"]: "+ary[i]);
       //System.out.println("ary[i]<ary[pivot]: "+(ary[i]<ary[pivot]));
       //System.out.println("Pivot value: "+ary[pivot]);
       //System.out.println("Pivot: "+pivot);
       //if (ary[i]<=ary[pivot]){
       if (ary[i]<=pivot){
-        moveFront(i, ary);
+        moveFront(i, start, ary);
         //System.out.println(toString(ary));
         //pivot++;
       }
@@ -45,6 +78,14 @@ public class Quick{
     ary[0]=temp;
   }
 
+  private static void moveFront(int selectedIndex, int start, int[] ary){
+    int temp = ary[selectedIndex];
+    for (int i = selectedIndex; i > start; i--){
+      ary[i]=ary[i-1];
+    }
+    ary[start]=temp;
+  }
+
   private static void moveBack(int selectedIndex, int[] ary){
     int temp = ary[selectedIndex];
     for (int i = ary.length - 1; i > selectedIndex; i--){
@@ -62,5 +103,16 @@ public class Quick{
     }
     return output +"}";
   }
-  //methods static
+  /*return the value that is the kth smallest value of the array. k=0 is the smallest
+ */
+  public static int quickselect(int[] data, int k){
+
+    return 0; //dummy
+  }
+
+  /*Modify the array to be in increasing order.
+  */
+  public static void quicksort(int[] data){
+
+  }
 }
