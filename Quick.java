@@ -33,7 +33,7 @@ public int partitionR(int[] data, int start, int end){
   /**
   *@return the index of the final position of the pivot element
   */
-  public static int partition(int[] ary, int start, int end){
+  public static int partitionOld(int[] ary, int start, int end){
     //Easy ( Implement both of these)
     //a - When choosing a pivot, use the median value of the lo,hi, and middle elements.
     //b - When a data element is equal to the pivot, make a 50% chance that you swap it to the other side.
@@ -72,6 +72,49 @@ public int partitionR(int[] data, int start, int end){
     }
     return pivot-1; //off by 1
   }
+
+  //previous partition had a longer runtime because of moveFront, this one is changed to simply swap
+  public static int partition(int[] ary, int start, int end){
+    if (start == end){
+      return start; //avoid negative index out of bounds
+    }
+    int pivot, pivotV;
+    if ((ary[start]<=ary[end] && ary[start]>=ary[(start+end)/2])
+      ||(ary[start]>=ary[end] && ary[start]<=ary[(start+end)/2])){ //if start is the median value
+      pivotV = ary[start];
+      pivot = start;
+    }
+    else if((ary[end]<=ary[start] && ary[end]>=ary[(start+end)/2])
+      ||(ary[end]>=ary[start] && ary[end]<=ary[(start+end)/2])){ //if end is the median value
+      pivotV = ary[end];
+      pivot = end;
+      }
+    else{ //otherwise the middle is the median value
+      pivotV = ary[(start+end)/2];
+      pivot = (start+end)/2;
+    }
+   swap(pivot, start, ary); //move pivot to front
+   pivot = start;
+   System.out.println("Pivot: "+pivot);
+   System.out.println("PivotV: "+pivotV);
+   start++; //to avoid extra run in the while loop
+   while (start != end) {
+     if (ary[start] >= pivotV) {
+       swap(start, end, ary);
+       end--;
+     }
+     else {
+       start++;
+     }
+   }
+   //after while loop completes, update the last few values
+   if (ary[pivot] < ary[start]){
+     start--;
+   }
+   ary[pivot] = ary[start];
+   ary[start] = pivotV;
+   return start;
+ }
 
   //swaps values
   private static void swap(int selectedIndex, int swapToIndex, int[] ary){
