@@ -1,5 +1,40 @@
 import java.util.Random;
 public class Quick{
+  //public static void main(String[] args) {
+    // Mr. K's driver
+    /*
+    System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
+    int[]MAX_LIST = {1000000000,500,10};
+    for(int MAX : MAX_LIST){
+      for(int size = 31250; size < 2000001; size*=2){
+        long qtime=0;
+        long btime=0;
+        //average of 5 sorts.
+        for(int trial = 0 ; trial <=5; trial++){
+          int []data1 = new int[size];
+          int []data2 = new int[size];
+          for(int i = 0; i < data1.length; i++){
+            data1[i] = (int)(Math.random()*MAX);
+            data2[i] = data1[i];
+          }
+          long t1,t2;
+          t1 = System.currentTimeMillis();
+          Quick.quicksort(data2);
+          t2 = System.currentTimeMillis();
+          qtime += t2 - t1;
+          t1 = System.currentTimeMillis();
+          Arrays.sort(data1);
+          t2 = System.currentTimeMillis();
+          btime+= t2 - t1;
+          if(!Arrays.equals(data1,data2)){
+            System.out.println("FAIL TO SORT!");
+            System.exit(0);
+          }
+        }
+        System.out.println(size +"\t\t"+MAX+"\t"+1.0*qtime/btime);
+      }
+      System.out.println();
+    }*/
   /*Modify the array such that:
  *1. Only the indices from start to end inclusive are considered in range
  *2. A random index from start to end inclusive is chosen, the corresponding
@@ -98,22 +133,35 @@ public int partitionR(int[] data, int start, int end){
    //System.out.println("Pivot: "+pivot);
    //System.out.println("PivotV: "+pivotV);
    start++; //to avoid extra run in the while loop
+   Random rnd = new Random();
+   int r; //used to create the 50% chance
    while (start != end) {
-     if (ary[start] >= pivotV) {
+     r = 3;
+     if (pivotV == ary[start]) r = rnd.nextInt(2);
+     if (ary[start] > pivotV || r == 1) {
        swap(start, end, ary);
        end--;
      }
-     else {
+     else if (ary[start] < ary[pivot] || r == 0){ //less than or equal with 50% chance
        start++;
      }
    }
    //after while loop completes, update the last few values
-   if (ary[pivot] < ary[start]){
+   /*if (ary[pivot] < ary[start]){
      start--;
    }
    ary[pivot] = ary[start];
    ary[start] = pivotV;
-   return start;
+   return start;*/
+   if (ary[pivot] > ary[start]) {
+      // if the pivot is bigger than start
+      swap(start, pivot, ary) ;
+      return start;
+    }
+    else {
+      swap(start - 1, pivot, ary) ;
+      return start - 1; //off by 1
+    }
  }
 
   //swaps values
@@ -176,14 +224,27 @@ public int partitionR(int[] data, int start, int end){
       throw new IllegalArgumentException("k out of bounds!"); //usually won't even happen :/
     }
     int p = partition(data, 0, data.length - 1); //final index of pivot element
-    while (p != k) { //p acts like start in partition's while loop: this only runs k times until element is put into the k "bucket"
-      if (k >= p){
-        p = partition(data, p, data.length - 1); //run partition on the right half
+    //if (k < data.length / 2){
+      while (p != k) { //p acts like start in partition's while loop: this only runs k times until element is put into the k "bucket"
+        if (k > p){
+          p = partition(data, p, data.length - 1); //run partition on the right half
+        }
+        else{
+          p = partition(data, 0, p); //run partition on the left half
+        }
+        //System.out.println("Partition index: "+p);
       }
-      else{
-        p = partition(data, 0, p); //run partition on the left half
+    /*}
+    else{
+      while (p!=data.length - k){
+        if (data.length - k >= p){
+          p = partition(data, p, data.length - 1); //partition right
+        }
+        else{
+          p = partition(data, 0, p); //partition left
+        }
       }
-    }
+    }*/
     return data[p];
   }
 
