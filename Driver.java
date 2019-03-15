@@ -64,7 +64,14 @@ public class Driver{
 
     System.out.println("a5, 10");
     System.out.println(Quick.toString(a5));
-    System.out.println(Quick.quickselect(a5, 10));
+    //System.out.println(Quick.quickselect(a5, 10));
 
+    int[]ary = { 2, 10, 15, 23, 0,  5};  //sorted :  {0,2,5,10,15,23}
+    System.out.println("0: "+Quick.quickselect( ary , 0 ));// would return 0
+    System.out.println("2: "+Quick.quickselect( ary , 1 ));//  would return 2
+    System.out.println("5: "+Quick.quickselect( ary , 2 ));//  would return 5
+    System.out.println("10: "+Quick.quickselect( ary , 3 ));//  would return 10
+    System.out.println("15: "+Quick.quickselect( ary , 4 ));//  would return 15
+    //System.out.println("23: "+Quick.quickselect( ary , 5 ));//  would return 23
   }
 }
