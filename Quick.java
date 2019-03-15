@@ -95,8 +95,8 @@ public int partitionR(int[] data, int start, int end){
     }
    swap(pivot, start, ary); //move pivot to front
    pivot = start;
-   System.out.println("Pivot: "+pivot);
-   System.out.println("PivotV: "+pivotV);
+   //System.out.println("Pivot: "+pivot);
+   //System.out.println("PivotV: "+pivotV);
    start++; //to avoid extra run in the while loop
    while (start != end) {
      if (ary[start] >= pivotV) {
@@ -118,7 +118,7 @@ public int partitionR(int[] data, int start, int end){
 
   //swaps values
   private static void swap(int selectedIndex, int swapToIndex, int[] ary){
-    if (selectedIndex < 0 || selectedIndex >= data.length || swapToIndex < 0 || swapToIndex >= data.length){
+    if (selectedIndex < 0 || selectedIndex >= ary.length || swapToIndex < 0 || swapToIndex >= ary.length){
       throw new IllegalArgumentException("Index out of bounds!"); //Ideally shouldn't ever happen
     }
     int temp = ary[swapToIndex];
@@ -127,7 +127,7 @@ public int partitionR(int[] data, int start, int end){
   }
 
   private static void moveFront(int selectedIndex, int[] ary){
-    if (selectedIndex < 0 || selectedIndex >= data.length) {
+    if (selectedIndex < 0 || selectedIndex >= ary.length) {
       throw new IllegalArgumentException("Index out of bounds!"); //Ideally shouldn't ever happen
     }
     int temp = ary[selectedIndex];
@@ -138,7 +138,7 @@ public int partitionR(int[] data, int start, int end){
   }
 
   private static void moveFront(int selectedIndex, int start, int[] ary){
-    if (selectedIndex < 0 || selectedIndex >= data.length) {
+    if (selectedIndex < 0 || selectedIndex >= ary.length) {
       throw new IllegalArgumentException("Index out of bounds!"); //Ideally shouldn't ever happen
     }
     int temp = ary[selectedIndex];
@@ -149,7 +149,7 @@ public int partitionR(int[] data, int start, int end){
   }
 
   private static void moveBack(int selectedIndex, int[] ary){
-    if (selectedIndex < 0 || selectedIndex >= data.length) {
+    if (selectedIndex < 0 || selectedIndex >= ary.length) {
       throw new IllegalArgumentException("Index out of bounds!"); //Ideally shouldn't ever happen
     }
     int temp = ary[selectedIndex];
@@ -168,13 +168,23 @@ public int partitionR(int[] data, int start, int end){
     }
     return output +"}";
   }
+
   /*return the value that is the kth smallest value of the array. k=0 is the smallest
  */
   public static int quickselect(int[] data, int k){
     if (k < 0 || k >= data.length) {
       throw new IllegalArgumentException("k out of bounds!"); //usually won't even happen :/
     }
-    return 0; //dummy
+    int p = partition(data, 0, data.length - 1); //final index of pivot element
+    while (p != k) { //p acts like start in partition's while loop: this only runs k times until element is put into the k "bucket"
+      if (k >= p){
+        p = partition(data, p, data.length - 1); //run partition on the right half
+      }
+      else{
+        p = partition(data, 0, p); //run partition on the left half
+      }
+    }
+    return data[p];
   }
 
   /*Modify the array to be in increasing order.
