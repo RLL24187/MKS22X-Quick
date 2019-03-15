@@ -29,24 +29,34 @@ public int partitionR(int[] data, int start, int end){
   }
   return pivot;
 }
-  public static int[] partition(int[] ary, int start, int end){
+
+  /**
+  *@return the index of the final position of the pivot element
+  */
+  public static int partition(int[] ary, int start, int end){
     //Easy ( Implement both of these)
     //a - When choosing a pivot, use the median value of the lo,hi, and middle elements.
     //b - When a data element is equal to the pivot, make a 50% chance that you swap it to the other side.
     //taking the median number as the pivot
-    int pivot;
+    int pivotV, pivot; //value and index respectively
     if ((ary[start]<=ary[end] && ary[start]>=ary[(start+end)/2])
-      ||(ary[start]>=ary[end] && ary[start]<=ary[(start+end)/2])){
-      pivot = ary[start];
+      ||(ary[start]>=ary[end] && ary[start]<=ary[(start+end)/2])){ //if start is the median value
+      pivotV = ary[start];
+      pivot = start;
     }
     else if((ary[end]<=ary[start] && ary[end]>=ary[(start+end)/2])
-      ||(ary[end]>=ary[start] && ary[end]<=ary[(start+end)/2])){
-      pivot = ary[end];
+      ||(ary[end]>=ary[start] && ary[end]<=ary[(start+end)/2])){ //if end is the median value
+      pivotV = ary[end];
+      pivot = end;
       }
-    else{
-      pivot = ary[(start+end)/2];
+    else{ //otherwise the middle is the median value
+      pivotV = ary[(start+end)/2];
+      pivot = (start+end)/2;
     }
+    swap(pivot, start, ary); //move pivot to start
+    pivot = start;
     System.out.println("Pivot: "+pivot);
+    System.out.println("PivotV: "+pivotV);
     //loop through the array and partition into less than and greater than sections based on pivot
     for (int i = start; i < end+1; i++){
       //System.out.println("ary["+i+"]: "+ary[i]);
@@ -54,13 +64,13 @@ public int partitionR(int[] data, int start, int end){
       //System.out.println("Pivot value: "+ary[pivot]);
       //System.out.println("Pivot: "+pivot);
       //if (ary[i]<=ary[pivot]){
-      if (ary[i]<=pivot){
+      if (ary[i]<=pivotV){
         moveFront(i, start, ary);
         //System.out.println(toString(ary));
-        //pivot++;
+        pivot++;
       }
     }
-    return ary;
+    return pivot-1; //off by 1
   }
 
   //swaps values
