@@ -1,8 +1,7 @@
-import java.util.Random;
+import java.util.*;
 public class Quick{
-  //public static void main(String[] args) {
+  public static void main(String[] args) {
     // Mr. K's driver
-    /*
     System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
     int[]MAX_LIST = {1000000000,500,10};
     for(int MAX : MAX_LIST){
@@ -34,7 +33,8 @@ public class Quick{
         System.out.println(size +"\t\t"+MAX+"\t"+1.0*qtime/btime);
       }
       System.out.println();
-    }*/
+    }
+  }
   /*Modify the array such that:
  *1. Only the indices from start to end inclusive are considered in range
  *2. A random index from start to end inclusive is chosen, the corresponding
@@ -251,6 +251,16 @@ public int partitionR(int[] data, int start, int end){
   /*Modify the array to be in increasing order.
   */
   public static void quicksort(int[] data){
-
+    if (data.length > 1){ //lists of size 0 and 1 are already sorted
+      quicksortH(data, 0, data.length - 1);
+    }
+  }
+  // helper for quicksort
+  public static void quicksortH(int[] data, int start, int end) {
+    if (start >= end) return;
+    int a = partition(data, start, end);
+    //System.out.println("Position of pivot is: " + a) ;
+    quicksortH(data, start, a - 1); //run quicksort on the left half
+    quicksortH(data, a + 1, end); //then run it on the right half
   }
 }
