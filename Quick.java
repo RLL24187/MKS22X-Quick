@@ -118,12 +118,18 @@ public int partitionR(int[] data, int start, int end){
 
   //swaps values
   private static void swap(int selectedIndex, int swapToIndex, int[] ary){
+    if (selectedIndex < 0 || selectedIndex >= data.length || swapToIndex < 0 || swapToIndex >= data.length){
+      throw new IllegalArgumentException("Index out of bounds!"); //Ideally shouldn't ever happen
+    }
     int temp = ary[swapToIndex];
     ary[swapToIndex]=ary[selectedIndex];
     ary[selectedIndex]=temp;
   }
 
   private static void moveFront(int selectedIndex, int[] ary){
+    if (selectedIndex < 0 || selectedIndex >= data.length) {
+      throw new IllegalArgumentException("Index out of bounds!"); //Ideally shouldn't ever happen
+    }
     int temp = ary[selectedIndex];
     for (int i = selectedIndex; i > 0; i--){
       ary[i]=ary[i-1];
@@ -132,6 +138,9 @@ public int partitionR(int[] data, int start, int end){
   }
 
   private static void moveFront(int selectedIndex, int start, int[] ary){
+    if (selectedIndex < 0 || selectedIndex >= data.length) {
+      throw new IllegalArgumentException("Index out of bounds!"); //Ideally shouldn't ever happen
+    }
     int temp = ary[selectedIndex];
     for (int i = selectedIndex; i > start; i--){
       ary[i]=ary[i-1];
@@ -140,6 +149,9 @@ public int partitionR(int[] data, int start, int end){
   }
 
   private static void moveBack(int selectedIndex, int[] ary){
+    if (selectedIndex < 0 || selectedIndex >= data.length) {
+      throw new IllegalArgumentException("Index out of bounds!"); //Ideally shouldn't ever happen
+    }
     int temp = ary[selectedIndex];
     for (int i = ary.length - 1; i > selectedIndex; i--){
       ary[i]=ary[i-1];
@@ -159,7 +171,9 @@ public int partitionR(int[] data, int start, int end){
   /*return the value that is the kth smallest value of the array. k=0 is the smallest
  */
   public static int quickselect(int[] data, int k){
-
+    if (k < 0 || k >= data.length) {
+      throw new IllegalArgumentException("k out of bounds!"); //usually won't even happen :/
+    }
     return 0; //dummy
   }
 
