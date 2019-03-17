@@ -110,5 +110,66 @@ public class Driver{
     System.out.println("\na7\n"+Quick.toString(a7));
     Quick.quicksort(a7);
     System.out.println(Quick.toString(a7));
+
+
+    System.out.println("Testing partitionDutch");
+    //System.out.println(Quick.toString(a1));
+    //System.out.println("Testing Quick.moveFront(5, a1)--> Move 3 to the front");
+    //Quick.moveFront(5, a1);
+
+    System.out.println("\nTesting (a1, 0, 8): ");
+    System.out.println(Quick.toString(a1));
+    System.out.println(Quick.partitionDutch(a1, 0, 8));
+    System.out.println(Quick.toString(a1));
+
+    System.out.println("\nTesting (a2, 0, 8): ");
+    System.out.println(Quick.toString(a2));
+    System.out.println(Quick.partitionDutch(a2, 0, 8));
+    System.out.println(Quick.toString(a2));
+
+    System.out.println("\nTesting (a3, 1, 1): ");
+    System.out.println(Quick.toString(a3));
+    System.out.println(Quick.partitionDutch(a3, 1, 1));
+    System.out.println(Quick.toString(a3));
+
+    System.out.println("\nTesting (a4, 7, 12): ");
+    System.out.println(Quick.toString(a4));
+    System.out.println(Quick.partitionDutch(a4, 7, 12));
+    System.out.println(Quick.toString(a4));
+
+    System.out.println("\nTesting (a5, 0, 14): ");
+    System.out.println(Quick.toString(a5));
+    System.out.println(Quick.partitionDutch(a5, 0, 14));
+    System.out.println(Quick.toString(a5));
+
+
+    System.out.println("\n---------Testing quickSortDutch---------");
+    System.out.println("\na1\n"+Quick.toString(a1));
+    Quick.quicksortDutch(a1);
+    System.out.println(Quick.toString(a1));
+
+    System.out.println("\na2\n"+Quick.toString(a2));
+    Quick.quicksortDutch(a2);
+    System.out.println(Quick.toString(a2));
+
+    System.out.println("\na3\n"+Quick.toString(a3));
+    Quick.quicksortDutch(a3);
+    System.out.println(Quick.toString(a3));
+
+    System.out.println("\na4\n"+Quick.toString(a4));
+    Quick.quicksortDutch(a4);
+    System.out.println(Quick.toString(a4));
+
+    System.out.println("\na5\n"+Quick.toString(a5));
+    Quick.quicksortDutch(a5);
+    System.out.println(Quick.toString(a5));
+
+    System.out.println("\na6\n"+Quick.toString(a6));
+    Quick.quicksortDutch(a6);
+    System.out.println(Quick.toString(a6));
+
+    System.out.println("\na7\n"+Quick.toString(a7));
+    Quick.quicksortDutch(a7);
+    System.out.println(Quick.toString(a7));
   }
 }
