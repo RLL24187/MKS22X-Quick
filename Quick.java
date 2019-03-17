@@ -259,14 +259,14 @@ public int partitionR(int[] data, int start, int end){
     while (i <= gt) {
       if (data[i] < data[pivot]) {
         swap(lt, i, data); //swap lt and i
-        lt++; // lt moves up one, since switched data[lt] != pivot
+        lt++; // lt moves up one after switching data[lt] and new value != pivot
         i++; // up the current element
-        pivot++; // pivot moved
+        pivot++; // pivot moves up 1 too
       } else if (data[i] == data[pivot]) {
-        i++; // just move up the current element, this one can stay where it is
+        i++; // adjust index b/c it is equal to pivot value
       } else { // data[i] > data[pivot]
         swap(gt, i, data); //swap gt and i
-        gt--; // gt down one, since switched data[gt] != pivot
+        gt--; // gt down one after switching data[gt] and new value != pivot
       }
     }
    return new int[] {lt, gt}; //returns array with lt and gt
@@ -288,10 +288,17 @@ public int partitionR(int[] data, int start, int end){
   }
 
   public static void quicksortDutch(int[] data){
-
+    if (data.length > 1){ //lists of size 0 and 1 are already sorted
+      quicksortDutchH(data, 0, data.length - 1);
+    }
   }
 
   public static void quicksortDutchH(int[] data, int start, int end){
-
+    if (start >= end){
+     return;
+   }
+   int[] p = partitionDutch(data, start, end);
+   quicksortDutchH(data, start, p[0]-1); //lt
+   quicksortDutchH(data, p[1]+1, end); //gt
   }
 }
