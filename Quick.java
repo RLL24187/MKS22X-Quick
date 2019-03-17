@@ -147,12 +147,6 @@ public int partitionR(int[] data, int start, int end){
      }
    }
    //after while loop completes, update the last few values
-   /*if (ary[pivot] < ary[start]){
-     start--;
-   }
-   ary[pivot] = ary[start];
-   ary[start] = pivotV;
-   return start;*/
    if (ary[pivot] > ary[start]) {
       // if the pivot is bigger than start
       swap(start, pivot, ary) ;
@@ -242,20 +236,41 @@ public int partitionR(int[] data, int start, int end){
         //System.out.println("Right bound: "+r);
         //System.out.println("Partition index: "+p);
       }
-    /*}
-    else{
-      while (p!=data.length - k){
-        if (data.length - k >= p){
-          p = partition(data, p, data.length - 1); //partition right
-        }
-        else{
-          p = partition(data, 0, p); //partition left
-        }
-      }
-    }*/
     return data[p];
   }
 
+  public static int[] partitionDutch(int[] data, int lo, int hi){
+    //beginning
+    //|v|.......................| |
+    //^lo/lt                    ^hi/gt
+    //during
+    //|<v...|=v....|........|>v...|
+    //       ^lt    ^l     ^gt
+    //after
+    //|<v.......|=v........|>v....|
+    //^lo       ^lo      ^gt     ^hi
+    int lt = lo;
+    int gt = hi;
+    int i = lt + 1;
+    int pivot = lo;
+    //between lo and lt is the section for less than pivot
+    //between lt and gt is the section for equaling pivot (data[lt] and data[gt] equal the pivot)
+    //between gt and hi is the section for greater than pivot
+    while (i <= gt) {
+      if (data[i] < data[pivot]) {
+        swap(lt, i, data); //swap lt and i
+        lt++; // lt moves up one, since switched data[lt] != pivot
+        i++; // up the current element
+        pivot++; // pivot moved
+      } else if (data[i] == data[pivot]) {
+        i++; // just move up the current element, this one can stay where it is
+      } else { // data[i] > data[pivot]
+        swap(gt, i, data); //swap gt and i
+        gt--; // gt down one, since switched data[gt] != pivot
+      }
+    }
+   return new int[] {lt, gt}; //returns array with lt and gt
+  }
   /*Modify the array to be in increasing order.
   */
   public static void quicksort(int[] data){
@@ -270,5 +285,13 @@ public int partitionR(int[] data, int start, int end){
     //System.out.println("Position of pivot is: " + a) ;
     quicksortH(data, start, a - 1); //run quicksort on the left half
     quicksortH(data, a + 1, end); //then run it on the right half
+  }
+
+  public static void quicksortDutch(int[] data){
+
+  }
+
+  public static void quicksortDutchH(int[] data, int start, int end){
+
   }
 }
