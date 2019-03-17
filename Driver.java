@@ -1,4 +1,4 @@
-import java.util.Random;
+import java.util.*;
 public class Driver{
   public static void main(String[] args){
     Random rnd = new Random(0);
@@ -17,7 +17,7 @@ public class Driver{
     //System.out.println(Quick.toString(a1));
     //System.out.println("Testing Quick.moveFront(5, a1)--> Move 3 to the front");
     //Quick.moveFront(5, a1);
-
+    /*
     System.out.println("\nTesting (a1, 0, 8): ");
     System.out.println(Quick.toString(a1));
     System.out.println(Quick.partition(a1, 0, 8));
@@ -42,29 +42,29 @@ public class Driver{
     System.out.println(Quick.toString(a5));
     System.out.println(Quick.partition(a5, 0, 14));
     System.out.println(Quick.toString(a5));
-
+    */
 
 
     System.out.println("\n--------Testing quickselect--------");
-    System.out.println("a1, 4");
+    System.out.println("\na1, 4");
     System.out.println(Quick.toString(a1));
     System.out.println(Quick.quickselect(a1, 4));
 
-    System.out.println("a2, 6");
+    System.out.println("\na2, 6");
     System.out.println(Quick.toString(a2));
     System.out.println(Quick.quickselect(a2, 6));
 
-    System.out.println("a3, 1");
+    System.out.println("\na3, 1");
     System.out.println(Quick.toString(a3));
     System.out.println(Quick.quickselect(a3, 1));
 
-    System.out.println("a4, 0");
+    System.out.println("\na4, 0");
     System.out.println(Quick.toString(a4));
     System.out.println(Quick.quickselect(a4, 0));
 
-    System.out.println("a5, 10");
+    System.out.println("\na5, 10");
     System.out.println(Quick.toString(a5));
-    //System.out.println(Quick.quickselect(a5, 10));
+    System.out.println(Quick.quickselect(a5, 10));
 
     int[]ary = { 2, 10, 15, 23, 0,  5};  //sorted :  {0,2,5,10,15,23}
     System.out.println("0: "+Quick.quickselect( ary , 0 ));// would return 0
