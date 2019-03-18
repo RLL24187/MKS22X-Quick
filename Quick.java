@@ -275,7 +275,7 @@ public int partitionR(int[] data, int start, int end){
   */
   public static void quicksort(int[] data){
     if (data.length > 1){ //lists of size 0 and 1 are already sorted
-      quicksortH(data, 0, data.length - 1);
+      quicksortDutchH(data, 0, data.length - 1);
     }
   }
   // helper for quicksort
