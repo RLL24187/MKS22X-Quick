@@ -213,11 +213,11 @@ public int partitionR(int[] data, int start, int end){
 
   /*return the value that is the kth smallest value of the array. k=0 is the smallest
  */
-  public static int quickselect(int[] data, int k){
+  public static int quickselectOld(int[] data, int k){
     if (k < 0 || k >= data.length) {
       throw new IllegalArgumentException("k out of bounds!"); //usually won't even happen :/
     }
-    int p = partitionDutch(data, 0, data.length - 1); //final index of pivot element
+    int p = partition(data, 0, data.length - 1); //final index of pivot element
     //store the left bound and right bounds
     int l = 0;
     int r = data.length - 1;
@@ -225,11 +225,11 @@ public int partitionR(int[] data, int start, int end){
       while (p != k) { //p acts like start in partition's while loop: this only runs k times until element is put into the k "bucket"
         if (k > p){
           l = p + 1;
-          p = partitionDutch(data, l, r); //run partition on the right half
+          p = partition(data, l, r); //run partition on the right half
         }
         else{
           r = p - 1;
-          p = partitionDutch(data, l, r); //run partition on the left half
+          p = partition(data, l, r); //run partition on the left half
         }
         //System.out.println(toString(data));
         //System.out.println("Left bound: "+l);
@@ -237,6 +237,30 @@ public int partitionR(int[] data, int start, int end){
         //System.out.println("Partition index: "+p);
       }
     return data[p];
+  }
+
+  public static int quickselect(int[] data, int k){
+    if (k < 0 || k >= data.length){
+      throw new IllegalArgumentException("k out of bounds!");
+    }
+    int[] ps = partitionDutch(data, 0, data.length - 1); //indices of middle section (=)
+    //store left and right bounds
+    int l = 0;
+    int r = data.length - 1;
+    while (ps[0] != k && ps[1]!=k){ //while both indices aren't equal to k
+      if (k > ps[1]){
+        l = ps[1]+1;
+        ps = partitionDutch(data, l, r); //partition right half
+      }
+      else if (k < ps[0]){
+        r = ps[0] - 1;
+        ps = partitionDutch(data, l, r); //partition the left
+      }
+      else{ //if k is in between, then the value is in the equal section
+        return data[ps[0]];
+      }
+    }
+    return data[ps[0]]; 
   }
 
   public static int[] partitionDutch(int[] data, int lo, int hi){
