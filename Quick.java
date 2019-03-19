@@ -217,7 +217,7 @@ public int partitionR(int[] data, int start, int end){
     if (k < 0 || k >= data.length) {
       throw new IllegalArgumentException("k out of bounds!"); //usually won't even happen :/
     }
-    int p = partition(data, 0, data.length - 1); //final index of pivot element
+    int p = partitionDutch(data, 0, data.length - 1); //final index of pivot element
     //store the left bound and right bounds
     int l = 0;
     int r = data.length - 1;
@@ -225,11 +225,11 @@ public int partitionR(int[] data, int start, int end){
       while (p != k) { //p acts like start in partition's while loop: this only runs k times until element is put into the k "bucket"
         if (k > p){
           l = p + 1;
-          p = partition(data, l, r); //run partition on the right half
+          p = partitionDutch(data, l, r); //run partition on the right half
         }
         else{
           r = p - 1;
-          p = partition(data, l, r); //run partition on the left half
+          p = partitionDutch(data, l, r); //run partition on the left half
         }
         //System.out.println(toString(data));
         //System.out.println("Left bound: "+l);
