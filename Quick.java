@@ -260,7 +260,7 @@ public int partitionR(int[] data, int start, int end){
         return data[ps[0]];
       }
     }
-    return data[ps[0]]; 
+    return data[ps[0]];
   }
 
   public static int[] partitionDutch(int[] data, int lo, int hi){
@@ -306,9 +306,14 @@ public int partitionR(int[] data, int start, int end){
   public static void quicksortH(int[] data, int start, int end) {
     if (start >= end) return;
     int a = partition(data, start, end);
-    //System.out.println("Position of pivot is: " + a) ;
-    quicksortH(data, start, a - 1); //run quicksort on the left half
-    quicksortH(data, a + 1, end); //then run it on the right half
+    if (data.length < 15){
+      insertionSort(data);
+    }
+    else{
+      //System.out.println("Position of pivot is: " + a) ;
+      quicksortH(data, start, a - 1); //run quicksort on the left half
+      quicksortH(data, a + 1, end); //then run it on the right half
+    }
   }
 
   public static void quicksortDutch(int[] data){
@@ -321,8 +326,60 @@ public int partitionR(int[] data, int start, int end){
     if (start >= end){
      return;
    }
-   int[] p = partitionDutch(data, start, end);
-   quicksortDutchH(data, start, p[0]-1); //lt
-   quicksortDutchH(data, p[1]+1, end); //gt
+   if (data.length < 15){
+     insertionSort(data);
+   }
+   else{
+     int[] p = partitionDutch(data, start, end);
+     quicksortDutchH(data, start, p[0]-1); //lt
+     quicksortDutchH(data, p[1]+1, end); //gt
+    }
   }
+  /**Insertion Sort of an int array.
+  *Upon completion, the elements of the array will be in increasing order
+  *@param ary the elements to be sorted.
+  */
+  public static void insertionSort(int[] ary){
+    int nowVal; //Keep track of current index value
+    int insertIndex; //Keep track of where to insert the value
+    for (int i = 1;i<ary.length;++i){
+      //Loop through ary.length times (n)
+      nowVal = ary[i];
+      insertIndex = i;
+      while (insertIndex > 0 && nowVal < ary[insertIndex -1]){
+        //Shift the values if index is not 0 and nowVal is smaller than value before
+        ary[insertIndex] = ary[insertIndex - 1];
+        insertIndex--;
+      }
+      ary[insertIndex]=nowVal; //Insert the value at the index
+    }
+  }
+  /*
+  Sample time with dutch
+  Size            Max Value       quick/builtin ratio
+31250           1000000000      1.8275862068965518
+62500           1000000000      1.0212765957446808
+125000          1000000000      2.0384615384615383
+250000          1000000000      1.3463687150837989
+500000          1000000000      1.0833333333333333
+1000000         1000000000      1.8162839248434237
+2000000         1000000000      1.721407624633431
+
+31250           500     0.3125
+62500           500     0.5
+125000          500     1.8
+250000          500     1.4528301886792452
+500000          500     1.6603773584905661
+1000000         500     1.471698113207547
+2000000         500     1.4157549234135667
+
+31250           10      Infinity
+62500           10      2.4
+125000          10      1.588235294117647
+250000          10      1.65
+500000          10      1.0526315789473684
+1000000         10      1.644736842105263
+2000000         10      1.3131868131868132
+
+  */
 }
